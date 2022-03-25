@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>
+		Show {{ trackerName }} Data
+	</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="/{{ username }}/trackers"> Home </a>
+            <a class="navbar-brand" href="/{{ username }}/logout"> Logout </a>
+        </div>
+    </nav>
+	<br>
+	<div>
+		<h1 style="padding-left: 50px; padding-top: 10px;">Hello, {{ username }}</h1>
+	</div>
+	<div>
+		<h2 style="padding-left: 50px; padding-top: 10px;">{{ trackerName }} - Tracker</h2>
+	</div>
+	<br><br>
+	{% if b!=3 %}
+		<div>
+	            <img src="{{ image }}">
+	    </div>
+	{% endif %}
+    <br><br>
+	<div>
+		<table>
+			<tr>
+				<th style="text-align: center; width: 300px;padding: 5px;">On</th>
+				<th style="text-align: center; width: 300px;padding: 5px;">Value</th>
+				<th style="text-align: center; width: 300px;padding: 5px;">Notes</th>
+			</tr>
+			{% for data in entry %}
+			<tr>
+				<td style=" width: 300px;
+		        text-align: center;
+		        padding: 5px;">
+		        {{ data['date'] }}</td>
+
+				<td style=" width: 150px;
+		        text-align: center;
+		        padding: 5px;"> 
+
+		    	{% if b==1 %}
+		    		{% if data['value']==1 %}
+		    			Completed
+	    			{% else %}
+	    				NOT Completed
+    				{% endif %}
+				{% else %}
+					{{ data['value'] }}
+		    	{% endif %}
+
+		    	</td>
+
+				<td style=" width: 150px;
+		        text-align: center;
+		        padding: 5px;">
+		    	{{ data['notes'] }}
+		    	</td>
+
+				<td class="select" style=" width: 150px;
+		        text-align: center;
+		        padding: 5px;">
+
+					<div class="btn-group">
+					  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Actions
+					  </button>
+					  <div class="dropdown-menu">
+					    <a class="dropdown-item" href="/{{ username }}/trackers/{{ data['trackerName'] }}/{{ data['id'] }}/edit">Edit</a>
+					    <div class="dropdown-divider"></div>
+					    <a class="dropdown-item" href="/{{ username }}/trackers/{{ data['trackerName'] }}/{{ data['id'] }}/delete">Delete</a>
+					  </div>
+					</div>
+			</tr>
+			{% endfor %}
+		</table>
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
